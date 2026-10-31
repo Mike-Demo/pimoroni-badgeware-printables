@@ -27,7 +27,7 @@
 //      the case face — not the buttons — is the forward stop.
 //   M3 four Ø4 standoffs (tops at the review-measured z 13.57 in the
 //      v1 frame, rebased on y_badge); pad_cav_d = pad_d + 0.2;
-//      stick_cav_d = stick_t + 3 (0.3 clearance).
+//      stick_cav_d = stick_t + 0.3.
 //   M5 palm swell removed (swell_depth = 0): print back-down, no
 //      support under the hand surface; no table-rocking.
 //   M6 edge_bevel_back 3.0 -> 1.5, edge_bevel_front 1.6 -> 0.8

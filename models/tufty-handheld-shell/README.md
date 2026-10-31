@@ -25,7 +25,7 @@ Qw/ST cables pass through notches cut in the front of both divider webs
 Assembled size: **≈ 91 × 135 × 25 mm**, 2.4 mm walls throughout.
 Print guidance (from the review's slicing): back shell **back-face
 down, no support** (≈ 5 h, ≈ 69 g PLA without the swell); bezel flat,
-either face down (≈ 1 h, ≈ 12 g PLA). Do not print the shell front-down
+either face down (≈ 1 h, ≈ 14 g PLA). Do not print the shell front-down
 (the badge-bay ceiling would need ~30 cm³ of internal support).
 
 ## v3 — what changed (Copilot review, PR #2)
