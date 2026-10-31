@@ -1,4 +1,4 @@
-// Tufty 2350 handheld — FULL SHELL case (v3.1: v3 review fixes + lanyard lugs)
+// Tufty 2350 handheld — FULL SHELL case (v3.2: v3 review fixes + lugs, lug print fix)
 // =====================================================================
 // A complete two-part shell that houses all three boards at once:
 //   * Tufty 2350 (in its stock polycarbonate case) — rests on four rear
@@ -39,6 +39,11 @@
 // shell (x ±26, each with a 10 x 2.6 mm through-slot) so the unit can
 // still be worn as a badge. Overall height 135.3 -> 141.3 mm. The
 // badge's own lanyard tab stays enclosed — the stick bay is above it.
+// v3.2 (REVIEW-V3.1 fixes): the lugs now run z 0..18, full columns
+// from the bed, so the back-down print is genuinely support-free
+// (v3.1's lugs started at z 4, leaving the 6 mm rise an unsupported
+// ledge — review P2). Slot ends are fully rounded (stadium profile)
+// for the P3 stress-concentration point.
 // STILL PENDING HARDWARE MEASUREMENTS (see README): badge USB-C and
 // Qw/ST socket positions, BOOT/RESET positions (M4 rear holes),
 // button-centre confirmation for the M2 notches, stick connector end
@@ -129,8 +134,10 @@ stick_notch_w = 54;                          // wide: connector end unknown
 // the flat of the top edge, inside the 10 mm corner radii, and clear
 // of the top pilot holes at (±35.5, 128.15).
 lug_x = 26;  lug_w = 16;  lug_rise = 6;      // rise above the top edge
-lug_d = 14;  lug_z0 = 4;                     // depth band (z 4..18)
-lug_slot_w = 10;  lug_slot_h = 2.6;          // cord slot, through in Z
+lug_d = 18;  lug_z0 = 0;                     // depth band z 0..18: full
+                                             // column from the bed (v3.2)
+lug_slot_w = 10;  lug_slot_h = 2.6;          // cord slot, through in Z,
+                                             // stadium profile (v3.2)
 
 // Render selection: 0 assembled (+ghosts), 1 back, 2 bezel, 3 exploded
 PART = 0;
@@ -219,17 +226,24 @@ module back_shell() {
     for (sx = [-1, 1], dy = standoff_dy)
         translate([sx * standoff_x, y_badge + dy, wall])
             cylinder(d = standoff_d, h = standoff_top_z - wall);
-    // lanyard lugs (v3.1): rounded tabs rising above the top edge,
-    // each with a through slot for a cord or split-ring clip. Unioned
-    // after the bay cuts; the profile starts at the stick bay's top
-    // inner face, so nothing protrudes into the bay.
+    // lanyard lugs (v3.1, fixed v3.2): rounded tabs rising above the
+    // top edge, each with a rounded-end through slot for a cord or
+    // split-ring clip. Unioned after the bay cuts; the profile starts
+    // at the stick bay's top inner face, so nothing protrudes into
+    // the bay, and the lugs run from z 0 (the bed) so they print as
+    // supported columns in the back-down orientation.
     for (sx = [-1, 1])
         difference() {
             translate([sx * lug_x, lug_base_y + (wall + lug_rise)/2, lug_z0])
                 linear_extrude(height = lug_d)
                     rrect2(lug_w, wall + lug_rise, 3);
-            box_at(sx * lug_x, lug_slot_y, lug_z0 + lug_d/2,
-                   lug_slot_w, lug_slot_h, lug_d + 2);
+            translate([sx * lug_x, lug_slot_y, lug_z0 - 1])
+                linear_extrude(height = lug_d + 2)
+                    hull() {
+                        for (e = [-1, 1])
+                            translate([e * (lug_slot_w/2 - lug_slot_h/2), 0])
+                                circle(d = lug_slot_h);
+                    }
         }
     // gentle palm swell — DISABLED in v3 (M5: forced support over the
     // whole back and rocked on a table). Set swell_depth > 0 to restore.

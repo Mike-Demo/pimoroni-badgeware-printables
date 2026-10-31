@@ -1,4 +1,4 @@
-# Tufty handheld — full shell case (v3.1 — review fixes + lanyard lugs)
+# Tufty handheld — full shell case (v3.2 — review fixes + lanyard lugs)
 
 A complete two-part shell that houses the whole Badgeware handheld stack
 at once, designed against Pimoroni's own printable models:
@@ -69,18 +69,26 @@ for their full 10 mm and blind below; both divider notches are
 continuous pad→badge and stick→badge; standoffs present at all four
 sites; no clip or swell geometry remains.
 
-## v3.1 — lanyard lugs
+## v3.1 / v3.2 — lanyard lugs
 
 Two rounded lugs rise 6 mm above the back shell's top edge at
 x ±26 mm (kept inside the corner radii and clear of the top pilot
-holes). Each is 16 mm wide × 14 mm deep with a 10 × 2.6 mm through-slot
-(front to back) for a lanyard cord or split-ring clips — two-point
-attachment, so the unit hangs flat like a conference badge. The lugs
-are part of the back shell and print in the same back-down,
-support-free orientation. Probe-verified: slots are through, the
-bridge above each slot is solid, and the stick bay and pilot holes
-are unaffected. The re-review's **Print** verdict (REVIEW-V3.md)
+holes). Each is 16 mm wide × 18 mm deep with a 10 × 2.6 mm
+through-slot (front to back) for a lanyard cord or split-ring
+clips — two-point attachment, so the unit hangs flat like a
+conference badge. The re-review's **Print** verdict (REVIEW-V3.md)
 predates the lugs; they change nothing it measured inside the shell.
+
+The lug delta got its own review (REVIEW-V3.1.md, verdict *keep with
+changes*), and v3.2 applies its two findings: the lugs now run the
+full depth band from **z 0**, printing as columns from the bed — in
+v3.1 they started at z 4, which left the rise as an unsupported
+ledge and broke the support-free claim (P2); and the slot ends are
+fully rounded (stadium profile) instead of square-cornered, for the
+stress-concentration point (P3). Probe-verified: slots through
+across the whole band, lug material continuous to the bed, rounded
+corners filled, stick bay and pilot holes unaffected. Snatch/drop
+strength remains a physical-test item, as the review noted.
 
 ## Still pending — needs measurements from a real Tufty / stick
 
