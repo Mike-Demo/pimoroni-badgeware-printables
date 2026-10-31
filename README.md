@@ -18,6 +18,10 @@ Badgeware is Pimoroni's RP2350-based badge platform — Badger 2350 (e-paper), T
 
 No pre-sliced print files (G-code / SLA) are offered for any of these models on Printables — the Model files above are the complete set. Each model folder also contains the model's cover photo from Printables (`preview.jpg` / `preview.png`) for identification.
 
+## Original design (not a Pimoroni mirror)
+
+[**Tufty handheld — full shell case**](models/tufty-handheld-shell/) — an original design by the repo owner, built *using* the mirrored models above as fit references: a two-part shell (back shell + screw-on front bezel, ≈ 90 × 127 × 27 mm assembled) that houses a Tufty 2350 in its stock case (clips into the badge bay), a Qw/ST Pad in its case, and a Multi-Sensor Stick, all at once. Parametric OpenSCAD source + print-ready STLs + previews are in its folder; its README carries the fit-check list (v1, not yet test-printed). It is not a Pimoroni design and is not covered by the mirror licences — see its own README for the licence note.
+
 ## Licences & attribution
 
 All models are © Pimoroni and are mirrored here under their original licences, with attribution:
