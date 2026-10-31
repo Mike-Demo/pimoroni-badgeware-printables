@@ -1,4 +1,4 @@
-# Tufty handheld — full shell case (v1 fit concept)
+# Tufty handheld — full shell case (v2 — ergonomics pass)
 
 A complete two-part shell that houses the whole Badgeware handheld stack
 at once, designed against Pimoroni's own printable models:
@@ -19,10 +19,23 @@ Qw/ST cable pass-through slots are cut through both divider webs
 | File | What |
 |---|---|
 | `tufty_handheld_shell.scad` | Parametric source. Set `PART`: 0 assembled preview, 1 back shell, 2 front bezel, 3 exploded preview |
-| `back_shell.stl` | Back shell — 89.8 × 127.3 × 24.6 mm |
+| `back_shell.stl` | Back shell — 91.0 × 127.3 × 26.7 mm (incl. grip ribs + palm swell) |
 | `front_bezel.stl` | Front bezel — 89.8 × 127.3 × 2.4 mm, joins the back shell with 4× M2.5 screws into printed bosses |
 
-Assembled size: **≈ 90 × 127 × 27 mm**, 2.4 mm walls throughout.
+Assembled size: **≈ 91 × 127 × 29 mm**, 2.4 mm walls throughout.
+
+## v2 ergonomics pass
+
+Same internal bays, clips, bosses and windows as v1 (fit behaviour is
+unchanged); the outside got friendlier to hold:
+
+- Corner radius 6 → **10 mm**, and the sharp 90° perimeter edges are
+  gone: **3 mm chamfer** around the back face, 1.6 mm at the front,
+  0.9 mm on the bezel.
+- A gentle **palm swell** on the back — a shallow dome ≈ 45 × 60 mm,
+  sitting 2.2 mm proud at centre height.
+- **Grip ribs** on both side walls (10 bars, 7 mm pitch, lower
+  two-thirds) so it resists sliding in the hand.
 
 ## Reference dimensions (measured from Pimoroni's STLs, 2026-10-31)
 
@@ -37,7 +50,7 @@ Pimoroni's geometry. The imports are sibling-relative
 so the preview resolves when this folder sits at
 `models/tufty-handheld-shell/` in the printables repo, as it does here.
 
-## Fit-check before printing (v1 — not yet test-printed)
+## Fit-check before printing (v2 — not yet test-printed)
 
 1. **Badge window vs real Tufty face** — the blank buck is a solid, so
    screen and button positions could not be measured. The window leaves

@@ -1,4 +1,8 @@
-// Tufty 2350 handheld — FULL SHELL case (v1 fit concept)
+// Tufty 2350 handheld — FULL SHELL case (v2: ergonomics pass)
+// v2 changes: corner radius 6 -> 10 mm, chamfered front/back perimeter
+// edges (3 mm back / 1.6 mm front), a gentle palm swell on the back,
+// and grip ribs on both side walls. Internal bays, clips, bosses and
+// windows are unchanged from v1, so fit behaviour is identical.
 // =====================================================================
 // A complete two-part shell that houses all three boards at once:
 //   * Tufty 2350 (in its stock polycarbonate case) — clips into the
@@ -26,7 +30,12 @@ $fn = 48;
 // ---------- parameters ----------
 clearance      = 0.5;    // per-side fit clearance for housed boards
 wall           = 2.4;    // shell wall / back panel / bezel thickness
-corner_r       = 6;      // outer corner radius
+corner_r       = 10;     // outer corner radius (v2: was 6)
+edge_bevel_back  = 3.0;  // back perimeter chamfer (v2)
+edge_bevel_front = 1.6;  // front perimeter chamfer (v2)
+grip_rib_step  = 7;      // side grip rib spacing (v2)
+swell_rx = 60; swell_ry = 80; swell_rz = 30;  // palm swell radii (v2)
+swell_depth    = 2.2;    // how proud the palm swell sits (v2)
 
 badge_w = 84;  badge_h = 76;  badge_d = 21.37;   // Tufty in stock case
 pad_w   = 62;  pad_h   = 29;  pad_d   = 8.35;    // Qw/ST Pad in its case
@@ -81,6 +90,25 @@ module rrect_prism(w, h, d, r) {
             offset(r = r) offset(delta = -r)
                 square([w, h], center = true);
 }
+module rrect2(w, h, r) {
+    offset(r = r) offset(delta = -r) square([w, h], center = true);
+}
+// Chamfered slab: full cross-section through the middle, perimeter
+// inset by b_back at the back face and b_front at the front face (v2).
+module slab(w, h, d, r, b_back, b_front) {
+    zs  = [0, b_back, d - b_front, d];
+    ins = [b_back, 0, 0, b_front];
+    for (i = [0 : len(zs) - 2]) {
+        hull() {
+            for (j = [i, i + 1]) {
+                zp = (j == len(zs) - 1) ? d - 0.2 : zs[j];
+                translate([0, h/2, zp])
+                    linear_extrude(0.2)
+                        rrect2(w - 2*ins[j], h - 2*ins[j], max(1, r - ins[j]));
+            }
+        }
+    }
+}
 module box_at(x, y, z, sx, sy, sz) {
     translate([x, y, z]) cube([sx, sy, sz], center = true);
 }
@@ -113,7 +141,7 @@ module stick_ghost() {
 // ---------- back shell ----------
 module back_shell() {
     difference() {
-        rrect_prism(outer_w, outer_h, shell_d, corner_r);
+        slab(outer_w, outer_h, shell_d, corner_r, edge_bevel_back, edge_bevel_front);
         // badge bay (full depth)
         box_at(0, y_badge + badge_cav_h/2, wall + badge_cav_d/2 + 0.1,
                badge_cav_w, badge_cav_h, badge_cav_d + 0.2);
@@ -152,13 +180,24 @@ module back_shell() {
                 cylinder(d = boss_hole, h = shell_d + 1);
             }
     }
+    // gentle palm swell on the back: clipped ellipsoid cap (v2)
+    intersection() {
+        translate([0, outer_h * 0.46, swell_rz - swell_depth])
+            scale([swell_rx, swell_ry, swell_rz]) sphere(r = 1, $fn = 120);
+        translate([0, outer_h/2, -swell_depth/2])
+            cube([outer_w, outer_h, swell_depth + 0.2], center = true);
+    }
+    // grip ribs on both side walls, lower two-thirds (v2)
+    for (side = [-1, 1], ry = [14 : grip_rib_step : 76])
+        translate([side * (outer_w/2 - 0.3), ry, shell_d/2])
+            cube([1.8, 3.4, 15], center = true);
 }
 
 // ---------- front bezel ----------
 module front_bezel() {
     difference() {
         union() {
-            rrect_prism(outer_w, outer_h, wall, corner_r);
+            slab(outer_w, outer_h, wall, corner_r, 0.9, 0.9);
         }
         // badge window (lips retain the badge face edges)
         box_at(0, y_badge + badge_cav_h/2, wall/2,
