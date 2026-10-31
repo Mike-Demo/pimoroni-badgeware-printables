@@ -1,4 +1,4 @@
-# Tufty handheld — full shell case (v3 — Copilot review fixes applied)
+# Tufty handheld — full shell case (v3.1 — review fixes + lanyard lugs)
 
 A complete two-part shell that houses the whole Badgeware handheld stack
 at once, designed against Pimoroni's own printable models:
@@ -14,15 +14,21 @@ at once, designed against Pimoroni's own printable models:
 Qw/ST cables pass through notches cut in the front of both divider webs
 (pad ↔ badge, stick ↔ badge).
 
+**Wearing it:** two lugs on the top edge of the back shell (v3.1, see
+below) take a lanyard cord or split-ring clips, so the unit can still
+be worn as a badge. The Tufty's own lanyard tab stays enclosed — the
+stick bay sits directly above it.
+
 ## Parts
 
 | File | What |
 |---|---|
 | `tufty_handheld_shell.scad` | Parametric source. Set `PART`: 0 assembled preview, 1 back shell, 2 front bezel, 3 exploded preview |
-| `back_shell.stl` | Back shell — 91.0 × 135.3 × 22.47 mm (width incl. grip ribs) |
+| `back_shell.stl` | Back shell — 91.0 × 141.3 × 22.47 mm (width incl. grip ribs, height incl. lanyard lugs) |
 | `front_bezel.stl` | Front bezel — 89.8 × 135.3 × 2.4 mm, joins with 4× M2.5 × 8 screws into 10 mm blind pilot holes (Ø2.2 PLA; open to Ø2.35 for PETG) |
 
-Assembled size: **≈ 91 × 135 × 25 mm**, 2.4 mm walls throughout.
+Assembled size: **≈ 91 × 141 × 25 mm** (135 mm tall without the lugs),
+2.4 mm walls throughout.
 Print guidance (from the review's slicing): back shell **back-face
 down, no support** (≈ 5 h, ≈ 69 g PLA without the swell); bezel flat,
 either face down (≈ 1 h, ≈ 14 g PLA). Do not print the shell front-down
@@ -62,6 +68,19 @@ Verified after export with mesh point-probes: pilot holes are void
 for their full 10 mm and blind below; both divider notches are
 continuous pad→badge and stick→badge; standoffs present at all four
 sites; no clip or swell geometry remains.
+
+## v3.1 — lanyard lugs
+
+Two rounded lugs rise 6 mm above the back shell's top edge at
+x ±26 mm (kept inside the corner radii and clear of the top pilot
+holes). Each is 16 mm wide × 14 mm deep with a 10 × 2.6 mm through-slot
+(front to back) for a lanyard cord or split-ring clips — two-point
+attachment, so the unit hangs flat like a conference badge. The lugs
+are part of the back shell and print in the same back-down,
+support-free orientation. Probe-verified: slots are through, the
+bridge above each slot is solid, and the stick bay and pilot holes
+are unaffected. The re-review's **Print** verdict (REVIEW-V3.md)
+predates the lugs; they change nothing it measured inside the shell.
 
 ## Still pending — needs measurements from a real Tufty / stick
 

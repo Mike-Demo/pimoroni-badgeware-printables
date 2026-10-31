@@ -1,4 +1,4 @@
-// Tufty 2350 handheld — FULL SHELL case (v3: Copilot review fixes)
+// Tufty 2350 handheld — FULL SHELL case (v3.1: v3 review fixes + lanyard lugs)
 // =====================================================================
 // A complete two-part shell that houses all three boards at once:
 //   * Tufty 2350 (in its stock polycarbonate case) — rests on four rear
@@ -35,6 +35,10 @@
 //   m1 bezel screw holes get a Ø5.0 x 1.2 counterbore.
 //   m3 stick window is now one full-length 52 x 5.5 slot (the old
 //      "vent slots" merged into the window anyway).
+// v3.1 (user request): two lanyard lugs on the top edge of the back
+// shell (x ±26, each with a 10 x 2.6 mm through-slot) so the unit can
+// still be worn as a badge. Overall height 135.3 -> 141.3 mm. The
+// badge's own lanyard tab stays enclosed — the stick bay is above it.
 // STILL PENDING HARDWARE MEASUREMENTS (see README): badge USB-C and
 // Qw/ST socket positions, BOOT/RESET positions (M4 rear holes),
 // button-centre confirmation for the M2 notches, stick connector end
@@ -96,6 +100,11 @@ y_stick = y_badge + badge_cav_h + divider;  // stick bay bottom (123.4)
 boss_y_top = y_stick + stick_cav_h/2;       // 128.15
 boss_y_bot = y_pad + pad_cav_h/2;           // 21.4
 
+// Lanyard lug placement (v3.1): the profile starts at the stick bay's
+// top inner face so the lug adds nothing inside the bay.
+lug_base_y = y_stick + stick_cav_h;         // 132.9
+lug_slot_y = outer_h + 2.6;                 // 137.9, slot centre height
+
 // Badge standoffs (M3): review measured the seated badge-back height
 // z 13.57 at badge-relative y 11.1 and 54.1 (v1 frame); rebased here.
 standoff_d = 4;
@@ -113,6 +122,15 @@ notch_size = 8.8;
 // Pad connector sits at x ~ +10 on the pad case (from its STL).
 pad_notch_x = 10;  pad_notch_w = 16;
 stick_notch_w = 54;                          // wide: connector end unknown
+
+// Lanyard lugs (v3.1): two tabs on the top edge of the back shell so
+// the unit can be worn as a badge. Shell-side only — no hardware
+// measurements needed. Centred at x ±26 so the lug bases sit fully on
+// the flat of the top edge, inside the 10 mm corner radii, and clear
+// of the top pilot holes at (±35.5, 128.15).
+lug_x = 26;  lug_w = 16;  lug_rise = 6;      // rise above the top edge
+lug_d = 14;  lug_z0 = 4;                     // depth band (z 4..18)
+lug_slot_w = 10;  lug_slot_h = 2.6;          // cord slot, through in Z
 
 // Render selection: 0 assembled (+ghosts), 1 back, 2 bezel, 3 exploded
 PART = 0;
@@ -201,6 +219,18 @@ module back_shell() {
     for (sx = [-1, 1], dy = standoff_dy)
         translate([sx * standoff_x, y_badge + dy, wall])
             cylinder(d = standoff_d, h = standoff_top_z - wall);
+    // lanyard lugs (v3.1): rounded tabs rising above the top edge,
+    // each with a through slot for a cord or split-ring clip. Unioned
+    // after the bay cuts; the profile starts at the stick bay's top
+    // inner face, so nothing protrudes into the bay.
+    for (sx = [-1, 1])
+        difference() {
+            translate([sx * lug_x, lug_base_y + (wall + lug_rise)/2, lug_z0])
+                linear_extrude(height = lug_d)
+                    rrect2(lug_w, wall + lug_rise, 3);
+            box_at(sx * lug_x, lug_slot_y, lug_z0 + lug_d/2,
+                   lug_slot_w, lug_slot_h, lug_d + 2);
+        }
     // gentle palm swell — DISABLED in v3 (M5: forced support over the
     // whole back and rocked on a table). Set swell_depth > 0 to restore.
     if (swell_depth > 0) {
