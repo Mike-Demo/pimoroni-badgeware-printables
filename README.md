@@ -20,7 +20,7 @@ No pre-sliced print files (G-code / SLA) are offered for any of these models on 
 
 ## Original design (not a Pimoroni mirror)
 
-[**Tufty handheld — full shell case**](models/tufty-handheld-shell/) — an original design by the repo owner, built *using* the mirrored models above as fit references: a two-part shell (back shell + screw-on front bezel, ≈ 91 × 141 × 25 mm assembled incl. lanyard lugs) that houses a Tufty 2350 in its stock case (rests on standoffs in the badge bay, retained by the bezel), a Qw/ST Pad in its case, and a Multi-Sensor Stick, all at once, with internal Qw/ST cabling, a USB-C wall window, and BOOT/RESET access holes. Parametric OpenSCAD source + print-ready STLs + previews are in its folder; its README carries the current status (v3.3, first-fit prototype — not yet test-printed). It is not a Pimoroni design and is not covered by the mirror licences — see its own README for the licence note.
+[**Tufty handheld — full shell case**](models/tufty-handheld-shell/) — an original design by the repo owner, built *using* the mirrored models above as fit references: a two-part shell (back shell + screw-on front bezel, ≈ 91 × 141 × 25 mm assembled incl. lanyard lugs) that houses a Tufty 2350 in its stock case (rests on standoffs in the badge bay, retained by the bezel), a Qw/ST Pad in its case, and a Multi-Sensor Stick, all at once, with internal Qw/ST cabling, a USB-C wall window, and BOOT/RESET access holes. Parametric OpenSCAD source + print-ready STLs + previews are in its folder; its README carries the current status (v3.4, first-fit prototype — not yet test-printed). It is not a Pimoroni design and is not covered by the mirror licences — see its own README for the licence note.
 
 ## Licences & attribution
 

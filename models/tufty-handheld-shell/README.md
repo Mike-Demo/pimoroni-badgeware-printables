@@ -1,4 +1,4 @@
-# Tufty handheld — full shell case (v3.3 — measured hardware fixes)
+# Tufty handheld — full shell case (v3.4 — stick locator pegs + longer bay)
 
 A complete two-part shell that houses the whole Badgeware handheld stack
 at once, designed against Pimoroni's own printable models:
@@ -129,14 +129,39 @@ Verified after export with 38 mesh point-probes: window, holes,
 riser, and full channel path void where they should be; pilot holes,
 standoffs, lugs, and cavities unchanged.
 
-## Still pending — needs a real stick / a first print
+## v3.4 — the stick, measured
 
-1. **Stick details** — connector end (the stick notch is cut wide to
-   cover either end) and LTR559 / BME280 positions vs the window.
-   Needs photos of the Multi-Sensor Stick itself.
-2. **First-fit checks** — bezel pad-window lip contact on the real
+The Multi-Sensor Stick was the last unmeasured part. From product
+photos of the real board (52 mm long; positions ±~0.5 mm):
+
+- **Qw/ST connectors at both ends** — it daisy-chains. The stick bay
+  is lengthened 61.5 → 66 mm so a plug gets ~7 mm at each end with
+  the stick centred (the top pilot holes keep 1.4 mm of wall).
+- **Mounting holes** Ø ≈ 3–3.2 mm at −15.3 / +15.5 mm from centre get
+  two **locator pegs** (Ø2.5 × 1.4 mm, deliberately loose) on the
+  bay's back wall: the stick registers in place, can't slide or
+  rattle between its plugs, and stays put in its clip orientation.
+- **Sensors verified against the window** — BME280 −6.7 mm, gyro
+  +2.2, LTR559 +10.6, all on the board's centreline: the full-length
+  52 × 5.5 mm window covers all three in either orientation, so the
+  window is unchanged.
+
+One cabling truth worth recording: a badge → stick → pad chain
+still can't be routed through the badge bay (the badge fills it).
+All three at once wants a small Qw/ST splitter in the badge bay's
+top zone — one leg up the riser to the stick, one down the gutter
+channel to the pad. One peripheral at a time works today.
+
+Verified after export with 43 mesh point-probes (the v3.3 set plus
+pegs present, bay end extended, pilot wall intact).
+
+## Still pending — physical checks only
+
+1. **First-fit checks** — bezel pad-window lip contact on the real
    pad case; USB-C plug clearance through the wall window; BOOT/RESET
-   tool reach; lug snatch/drop strength.
+   tool reach; peg fit in the stick's holes; lug snatch/drop strength.
+2. All measurement items are closed (badge 2026-10-31, stick
+   2026-11-01; record in `MEASUREMENTS-2026-10-31.md`).
 
 ## Reference dimensions (measured from Pimoroni's STLs, 2026-10-31)
 

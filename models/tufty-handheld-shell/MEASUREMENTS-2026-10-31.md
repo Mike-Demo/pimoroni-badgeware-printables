@@ -60,7 +60,29 @@ under the bezel lip — the notches must move to the measured centres.
 
 ## Still unmeasured
 
-- **The Multi-Sensor Stick itself**: which end the Qw/ST connector(s)
-  are on, and where the LTR559 / BME280 sit vs the stick window.
-  No stick photos were in this batch.
+- ~~**The Multi-Sensor Stick itself**~~ — measured 2026-11-01, see below.
 - Lug snatch/drop strength (physical test on the first print).
+
+## Multi-Sensor Stick — measured 2026-11-01
+
+From straight-on product photos of the real stick (scale: board
+length 52 mm; accuracy ±~0.5 mm). Positions along the board from its
+left end, sensor side facing the viewer as photographed; the stick
+can be inserted flipped, which mirrors the x positions (everything
+below is near-symmetric, so orientation doesn't matter).
+
+- **Qw/ST connectors at BOTH ends** — the stick daisy-chains.
+- All sensors sit on the board's vertical centreline (±0.4 mm):
+  - BME280 (TEMP/PRES/HUMID chip): 19.3 mm from left = **−6.7 from centre**
+  - Gyro/accel chip: 28.2 mm = **+2.2 from centre**
+  - LTR559 (LUX/PROX sensor): 36.6 mm = **+10.6 from centre**
+- Mounting holes (Ø ≈ 3–3.2 mm): 10.7 and 41.5 mm from left =
+  **−15.3 / +15.5 from centre**, on the centreline.
+- Window check: the bezel's 52 × 5.5 mm slot covers every sensor in
+  either orientation, even with the stick floated to one end of its
+  bay — the window is confirmed as-is. The holes invite two small
+  locator pegs on the bay's back wall to stop the stick sliding.
+- Cabling note: full badge → stick → pad chaining still can't route
+  through the badge bay (the badge fills it); a Qw/ST splitter in the
+  badge bay's top zone is the clean way to run all three at once.
+  One peripheral at a time works with the v3.3 routing.

@@ -1,4 +1,4 @@
-// Tufty 2350 handheld — FULL SHELL case (v3.3: measured hardware fixes)
+// Tufty 2350 handheld — FULL SHELL case (v3.4: stick locator pegs + bay)
 // =====================================================================
 // A complete two-part shell that houses all three boards at once:
 //   * Tufty 2350 (in its stock polycarbonate case) — rests on four rear
@@ -66,8 +66,18 @@
 //     forward under the pad and up a groove in the pad bay floor into
 //     the plug room. Route: plug the badge end first, drape the cable
 //     down the left gutter, seat the badge, plug the pad end last.
-// STILL PENDING HARDWARE MEASUREMENTS (see README): stick connector
-// end and LTR559/BME280 positions (no stick photos yet).
+// v3.4 (stick measured 2026-11-01 — see MEASUREMENTS-2026-10-31.md):
+// the Multi-Sensor Stick has Qw/ST connectors at BOTH ends and two
+// Ø ~3.2 mounting holes at x -15.3 / +15.5 (on its centreline).
+//   - stick bay lengthened 61.5 -> 66 mm, so a plug gets ~7 mm at
+//     each end when the stick is centred (top pilot holes keep
+//     1.4 mm of wall).
+//   - two locator pegs (Ø2.5 x 1.4) on the stick bay's back wall
+//     engage the mounting holes: the stick can't slide or rattle,
+//     and its sensors (BME280 -6.7, gyro +2.2, LTR559 +10.6, all on
+//     the centreline) stay registered to the bezel window.
+// STILL PENDING (see README): nothing measurement-shaped — what
+// remains is physical: first-fit checks and the lug strength test.
 //
 // Reference dimensions (measured 2026-10-31 from Pimoroni's own STLs
 // in github.com/Mike-Demo/pimoroni-badgeware-printables):
@@ -106,7 +116,9 @@ badge_cav_d = badge_d - 1.3;                     // 20.07 (v3, M2)
 pad_cav_w   = pad_w + 2*clearance;               // 63
 pad_cav_h   = pad_h + 2*clearance + 8;           // 38 (v3, B2: plug room)
 pad_cav_d   = pad_d + 0.2;                       // 8.55 (v3, M3)
-stick_cav_l = stick_l + 9.5;                     // 61.5 (v3, B2: >= 61)
+stick_cav_l = stick_l + 14;                      // 66 (v3.4: ~7 mm plug
+                                                 // room at BOTH ends;
+                                                 // v3/B2 had 61.5)
 stick_cav_h = stick_w + 1.6;                     // 9.5 (stick face forward)
 stick_cav_d = stick_t + 0.3;                     // 4.5 (v3, M3)
 
@@ -156,6 +168,10 @@ boot_hole_d = 7;                     // access hole (plungers ~Ø4.5)
 qwst_riser_x = -16;                  // badge Qw/ST socket x (top edge)
 chan_x = -37.5;                      // pad cable channel column (the
                                      // badge bay's left standoff gutter)
+stick_peg_x = [-15.3, 15.5];         // stick mounting-hole centres
+                                     // (v3.4, measured from centre)
+stick_peg_d = 2.5;  stick_peg_h = 1.4;  // loose locator fit in the
+                                     // stick's ~Ø3.2 holes
 
 // Qw/ST divider notches (B2), cut from the front of each divider web.
 // Pad connector sits at x ~ +10 on the pad case (from its STL).
@@ -282,6 +298,13 @@ module back_shell() {
     for (sx = [-1, 1], dy = standoff_dy)
         translate([sx * standoff_x, y_badge + dy, wall])
             cylinder(d = standoff_d, h = standoff_top_z - wall);
+    // stick locator pegs (v3.4): two short posts on the stick bay's
+    // back wall engage the stick's mounting holes (measured x -15.3 /
+    // +15.5, centreline), so the stick registers to the window and
+    // can't slide between its end plugs.
+    for (px = stick_peg_x)
+        translate([px, y_stick + stick_cav_h/2, shell_d - stick_cav_d])
+            cylinder(d = stick_peg_d, h = stick_peg_h);
     // lanyard lugs (v3.1, fixed v3.2): rounded tabs rising above the
     // top edge, each with a rounded-end through slot for a cord or
     // split-ring clip. Unioned after the bay cuts; the profile starts
