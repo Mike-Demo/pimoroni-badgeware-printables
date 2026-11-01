@@ -1,4 +1,4 @@
-# Tufty handheld — full shell case (v3.2 — review fixes + lanyard lugs)
+# Tufty handheld — full shell case (v3.3 — measured hardware fixes)
 
 A complete two-part shell that houses the whole Badgeware handheld stack
 at once, designed against Pimoroni's own printable models:
@@ -11,8 +11,14 @@ at once, designed against Pimoroni's own printable models:
 - **Multi-Sensor Stick** — top bay, sensor face forward behind a
   full-length bezel window.
 
-Qw/ST cables pass through notches cut in the front of both divider webs
-(pad ↔ badge, stick ↔ badge).
+Qw/ST cabling (v3.3): the badge → stick cable passes over the badge's
+top through a riser in the upper divider, at the badge socket's x.
+The pad run is internal too: plug the badge end first, drape the
+cable down the badge bay's back-left gutter and through the channel
+behind the pad bay, seat the badge, then plug the pad end (it emerges
+in the plug room above the pad). A USB-C window in the left wall and
+BOOT/RESET holes in the back panel (both v3.3, measured) mean the
+badge rarely needs to come out.
 
 **Wearing it:** two lugs on the top edge of the back shell (v3.1, see
 below) take a lanyard cord or split-ring clips, so the unit can still
@@ -90,20 +96,47 @@ across the whole band, lug material continuous to the bed, rounded
 corners filled, stick bay and pilot holes unaffected. Snatch/drop
 strength remains a physical-test item, as the review noted.
 
-## Still pending — needs measurements from a real Tufty / stick
+## v3.3 — measured hardware fixes
 
-1. **USB-C opening (B3)** — measure the port's position on the badge
-   edge; cut a 12 × 7 mm through-opening in the wall opposite it.
-2. **Badge Qw/ST socket position (B2 tail)** — confirm the badge-end
-   cable reach/bend through the new divider notches.
-3. **BOOT / RESET access (M4)** — both buttons (and the rear lighting)
-   sit behind the solid back panel. Measure positions; add Ø6 mm
-   access holes.
-4. **Button centres (M2)** — the bezel notches are placed from the
-   buck's modelled caps; confirm against the real badge before relying
-   on them.
-5. **Stick details** — connector end (the stick notch is cut wide to
+Everything below was measured on a real Tufty 2350 from photographs
+with rulers (positions cross-checked across two photos, ±~1.5 mm;
+full record in the design notes, `MEASUREMENTS-2026-10-31.md`).
+Badge-relative coordinates are from the case's bottom-left corner,
+front view.
+
+- **Bezel notches moved to the real caps** — A (−21.5, 5.9),
+  B (−2.4, 5.9), C (+16.3, 5.9), Down (+36.1, 26.2), Up (+36.1, 49.5).
+  The buck-derived positions were up to 7.5 mm off: the old Up notch
+  would have trapped most of the Up cap under the bezel lip.
+- **USB-C (B3, closed)** — the port is on the badge's **left edge**,
+  centre 32.5 mm up from the case bottom, ~flush with the case edge.
+  The shell's left wall now has a 14 × 11 mm window there, so a plug
+  can mate with the badge seated (slim plugs fit best). The left grip
+  rib at that height is omitted (8 ribs on the left, 9 on the right).
+- **BOOT / RESET (M4, closed)** — Ø7 mm holes through the back panel
+  at RESET (+12.3, 65.9) and HOME (+22.5, 65.9); the plungers are
+  ~Ø4.5 mm, and a paperclip or SIM tool reaches them (~11 mm from
+  panel to case back). The rear lighting stays covered.
+- **Qw/ST routing (B2 tail, closed for the badge end)** — the badge's
+  socket is at the top edge of its case (x −16, facing up). A riser
+  opening in the upper divider (z 6–21, merging with the front notch)
+  takes the badge → stick cable. The pad channel runs from the badge
+  bay's back-left gutter down behind the pad bay and up a groove in
+  its floor into the plug room; the channel keeps 1.97 mm from the
+  bottom-left pilot hole (probe-verified).
+
+Verified after export with 38 mesh point-probes: window, holes,
+riser, and full channel path void where they should be; pilot holes,
+standoffs, lugs, and cavities unchanged.
+
+## Still pending — needs a real stick / a first print
+
+1. **Stick details** — connector end (the stick notch is cut wide to
    cover either end) and LTR559 / BME280 positions vs the window.
+   Needs photos of the Multi-Sensor Stick itself.
+2. **First-fit checks** — bezel pad-window lip contact on the real
+   pad case; USB-C plug clearance through the wall window; BOOT/RESET
+   tool reach; lug snatch/drop strength.
 
 ## Reference dimensions (measured from Pimoroni's STLs, 2026-10-31)
 

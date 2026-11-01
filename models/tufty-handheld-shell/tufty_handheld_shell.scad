@@ -1,4 +1,4 @@
-// Tufty 2350 handheld — FULL SHELL case (v3.2: v3 review fixes + lugs, lug print fix)
+// Tufty 2350 handheld — FULL SHELL case (v3.3: measured hardware fixes)
 // =====================================================================
 // A complete two-part shell that houses all three boards at once:
 //   * Tufty 2350 (in its stock polycarbonate case) — rests on four rear
@@ -44,10 +44,30 @@
 // (v3.1's lugs started at z 4, leaving the 6 mm rise an unsupported
 // ledge — review P2). Slot ends are fully rounded (stadium profile)
 // for the P3 stress-concentration point.
-// STILL PENDING HARDWARE MEASUREMENTS (see README): badge USB-C and
-// Qw/ST socket positions, BOOT/RESET positions (M4 rear holes),
-// button-centre confirmation for the M2 notches, stick connector end
-// and LTR559/BME280 positions.
+// v3.3 (measured on Demo's physical badge 2026-10-31 — see
+// MEASUREMENTS-2026-10-31.md; badge-relative = from the case's
+// bottom-left corner, front view):
+//   - Bezel notches moved to the MEASURED cap centres: A (-21.5, 5.9),
+//     B (-2.4, 5.9), C (+16.3, 5.9), Down (+36.1, 26.2), Up
+//     (+36.1, 49.5). The v3.2 Up notch (y 42) would have trapped most
+//     of the Up cap under the bezel lip.
+//   - USB-C window in the badge bay's LEFT wall (the port is on the
+//     badge's left edge, centre badge-rel y 32.5, ~flush with the case
+//     edge): 14 (y) x 11 (z), so a plug can mate with the badge seated.
+//   - BOOT/RESET access holes (M4): Ø7 through the back panel at
+//     badge-rel RESET (+12.3, 65.9), HOME (+22.5, 65.9); plungers are
+//     Ø ~4.5, so Ø7 leaves alignment slack.
+//   - Qw/ST: the badge's socket is at the TOP edge of its case
+//     (badge-rel x -16, facing up). A "riser" opening in the upper
+//     divider at x -16 (z 6..21, merging with the front notch) lets
+//     the badge -> stick cable pass. For the pad run, a cable channel
+//     drops from the badge bay's back-left gutter: through the lower
+//     divider at x -37.5 (z 4.5..10.5), down behind the pad bay, then
+//     forward under the pad and up a groove in the pad bay floor into
+//     the plug room. Route: plug the badge end first, drape the cable
+//     down the left gutter, seat the badge, plug the pad end last.
+// STILL PENDING HARDWARE MEASUREMENTS (see README): stick connector
+// end and LTR559/BME280 positions (no stick photos yet).
 //
 // Reference dimensions (measured 2026-10-31 from Pimoroni's own STLs
 // in github.com/Mike-Demo/pimoroni-badgeware-printables):
@@ -117,11 +137,25 @@ standoff_top_z = 13.57;
 standoff_x = 37.5;
 standoff_dy = [11.6, 54.6];                 // offsets from y_badge
 
-// Button notch centres (M2), from the buck's modelled caps:
-// badge-relative (x, y): bottom row y +6.0, right column x +36.0... 
+// Button notch centres (M2), MEASURED on the real badge 2026-10-31
+// (v3.3; the buck's modelled caps were up to 7.5 mm off — see
+// MEASUREMENTS-2026-10-31.md):
+// badge-relative (x, y): bottom row y +5.9, right column x +36.1...
 // (x is absolute/centred; y is relative to the seated badge bottom)
-button_notches = [[-18, 6.0], [0, 6.0], [18, 6.0], [36.0, 24.0], [36.0, 42.0]];
+button_notches = [[-21.5, 5.9], [-2.4, 5.9], [16.3, 5.9], [36.1, 26.2], [36.1, 49.5]];
 notch_size = 8.8;
+
+// v3.3 measured hardware features (badge-relative, front view).
+usb_rel_y = 32.5;                    // USB-C centre on the badge's
+                                     // left edge, from the case bottom
+usb_win_y = 14;  usb_win_z = 11;     // wall window size (y by z)
+usb_win_zc = 13.5;                   // window centre height (shell z)
+boot_x = 22.5;  reset_x = 12.3;      // rear button centres (x)
+boot_rel_y = 65.9;                   // rear buttons, from case bottom
+boot_hole_d = 7;                     // access hole (plungers ~Ø4.5)
+qwst_riser_x = -16;                  // badge Qw/ST socket x (top edge)
+chan_x = -37.5;                      // pad cable channel column (the
+                                     // badge bay's left standoff gutter)
 
 // Qw/ST divider notches (B2), cut from the front of each divider web.
 // Pad connector sits at x ~ +10 on the pad case (from its STL).
@@ -217,6 +251,28 @@ module back_shell() {
                pad_notch_w, divider + 2, pad_cav_d + 0.2);
         box_at(0, y_stick - divider/2, shell_d - stick_cav_d/2,
                stick_notch_w, divider + 2, stick_cav_d + 0.2);
+        // USB-C window through the badge bay's left wall (v3.3,
+        // measured: the port is on the badge's left edge, badge-rel
+        // y 32.5, ~flush with the case edge).
+        box_at(-outer_w/2 + wall/2, y_badge + clearance + usb_rel_y,
+               usb_win_zc, wall + 1.2, usb_win_y, usb_win_z);
+        // BOOT/RESET access holes through the back panel (v3.3, M4;
+        // measured badge-rel RESET +12.3, HOME +22.5, both y 65.9).
+        for (bx = [reset_x, boot_x])
+            translate([bx, y_badge + clearance + boot_rel_y, -1])
+                cylinder(d = boot_hole_d, h = wall + 2);
+        // Qw/ST riser (v3.3): opening in the upper divider at the
+        // badge socket's x (badge-rel -16, top edge), z 6..21, merging
+        // with the front notch — the badge -> stick cable passes here.
+        box_at(qwst_riser_x, y_stick - divider/2, 13.5,
+               12, divider + 1.8, 15);
+        // Pad cable channel (v3.3): from the badge bay's left back
+        // gutter, through the lower divider, down behind the pad bay,
+        // forward under the pad, and up a groove in the pad bay floor
+        // into the plug room above the pad.
+        box_at(chan_x, 27.2, 7.5, 6, 34.4, 6);
+        box_at(-32.25, 13, 10.25, 16.5, 6, 11.5);
+        box_at(-28, 23, 12.75, 6, 22, 2.3);
         // M2.5 pilot holes: blind, 10 mm deep from the front face (B1).
         for (sx = [-1, 1], yy = [boss_y_bot, boss_y_top])
             translate([sx * boss_x, yy, shell_d - pilot_depth])
@@ -255,10 +311,13 @@ module back_shell() {
                 cube([outer_w, outer_h, swell_depth + 0.2], center = true);
         }
     }
-    // grip ribs on both side walls, lower portion (9 per side)
+    // grip ribs on both side walls, lower portion (9 per side; the
+    // left rib at y 70 is skipped in v3.3 — it would cross the USB-C
+    // window, leaving 8 on the left)
     for (side = [-1, 1], ry = [14 : grip_rib_step : 76])
-        translate([side * (outer_w/2 - 0.3), ry, shell_d/2])
-            cube([1.8, 3.4, 15], center = true);
+        if (!(side < 0 && ry > 67 && ry < 84))
+            translate([side * (outer_w/2 - 0.3), ry, shell_d/2])
+                cube([1.8, 3.4, 15], center = true);
 }
 
 // ---------- front bezel ----------
