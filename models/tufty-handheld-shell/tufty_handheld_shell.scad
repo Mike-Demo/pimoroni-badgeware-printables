@@ -1,4 +1,4 @@
-// Tufty 2350 handheld — FULL SHELL case (v3.5: final-review fixes)
+// Tufty 2350 handheld — FULL SHELL case (v3.6: pin-and-slot stick locators)
 // =====================================================================
 // A complete two-part shell that houses all three boards at once:
 //   * Tufty 2350 (in its stock polycarbonate case) — rests on four rear
@@ -69,9 +69,9 @@
 // v3.4 (stick measured 2026-11-01 — see MEASUREMENTS-2026-10-31.md):
 // the Multi-Sensor Stick has Qw/ST connectors at BOTH ends and two
 // Ø ~3.2 mounting holes at x -15.3 / +15.5 (on its centreline).
-//   - stick bay lengthened 61.5 -> 66 mm, so a plug gets ~7 mm at
-//     each end when the stick is centred (top pilot holes keep
-//     1.4 mm of wall).
+//   - stick bay lengthened 61.5 -> 66 mm, so each PCB end gets
+//     ~7 mm of room when the stick is centred (plug-body clearance
+//     unverified; top pilot holes keep 1.4 mm of wall).
 //   - two locator pegs (Ø2.5 x 1.4) on the stick bay's back wall
 //     engage the mounting holes: the stick can't slide or rattle,
 //     and its sensors (BME280 -6.7, gyro +2.2, LTR559 +10.6, all on
@@ -85,6 +85,15 @@
 //   3. README: BOOT/RESET reach corrected to ~14.4 mm from the
 //      panel's inner face (the case back at the buttons sits at
 //      z ~16.8 transformed, not at the standoff datum ~11 mm).
+// v3.6 (verification review REVIEW-V3.5: PRINT WITH CHANGES):
+// pin-and-slot stick location. The Ø2.0 pair had zero margin at the
+// worst case (min holes Ø3.0: 1.0 mm total pair clearance; opposing
+// ±0.5 mm spacing errors consume exactly 1.0 mm). Now the -15.3
+// locator stays a round Ø2.0 pin (sets x and y), and the +15.5
+// locator is a capsule rib, Ø2.0 wide and 5.5 long in x: it still
+// sets y, while hole-spacing error slides along the slot instead of
+// binding. Header wording aligned with the README (PCB-end room,
+// plug-body clearance unverified).
 // STILL PENDING (see README): nothing measurement-shaped — what
 // remains is physical: first-fit checks and the lug strength test.
 //
@@ -125,8 +134,10 @@ badge_cav_d = badge_d - 1.3;                     // 20.07 (v3, M2)
 pad_cav_w   = pad_w + 2*clearance;               // 63
 pad_cav_h   = pad_h + 2*clearance + 8;           // 38 (v3, B2: plug room)
 pad_cav_d   = pad_d + 0.2;                       // 8.55 (v3, M3)
-stick_cav_l = stick_l + 14;                      // 66 (v3.4: ~7 mm plug
-                                                 // room at BOTH ends;
+stick_cav_l = stick_l + 14;                      // 66 (v3.4: ~7 mm of
+                                                 // PCB-end room at
+                                                 // BOTH ends, plug-body
+                                                 // clearance unverified;
                                                  // v3/B2 had 61.5)
 stick_cav_h = stick_w + 1.6;                     // 9.5 (stick face forward)
 stick_cav_d = stick_t + 0.3;                     // 4.5 (v3, M3)
@@ -177,11 +188,12 @@ boot_hole_d = 7;                     // access hole (plungers ~Ø4.5)
 qwst_riser_x = -16;                  // badge Qw/ST socket x (top edge)
 chan_x = -37.5;                      // pad cable channel column (the
                                      // badge bay's left standoff gutter)
-stick_peg_x = [-15.3, 15.5];         // stick mounting-hole centres
-                                     // (v3.4, measured from centre)
-stick_peg_d = 2.0;  stick_peg_h = 1.4;  // locator fit in the stick's
-                                     // ~Ø3.2 holes (v3.5: Ø2.0 gives
-                                     // 0.5-0.6 radial clearance)
+stick_pin_x = -15.3;                 // stick mounting holes (v3.4,
+stick_slot_x = 15.5;                 // measured from centre)
+stick_peg_d = 2.0;  stick_peg_h = 1.4;  // pin/rib section: 0.5-0.6
+                                     // radial clearance in the ~Ø3.2
+                                     // holes (v3.5 Ø2.0; v3.6 slot)
+stick_slot_l = 5.5;                  // rib overall length in x (v3.6)
 
 // Qw/ST divider notches (B2), cut from the front of each divider web.
 // Pad connector sits at x ~ +10 on the pad case (from its STL).
@@ -310,12 +322,16 @@ module back_shell() {
     for (sx = [-1, 1], dy = standoff_dy)
         translate([sx * standoff_x, y_badge + dy, wall])
             cylinder(d = standoff_d, h = standoff_top_z - wall);
-    // stick locator pegs (v3.4): two short posts on the stick bay's
-    // back wall engage the stick's mounting holes (measured x -15.3 /
-    // +15.5, centreline), so the stick registers to the window and
-    // can't slide between its end plugs.
-    for (px = stick_peg_x)
-        translate([px, y_stick + stick_cav_h/2, shell_d - stick_cav_d])
+    // stick locators (v3.4 pegs; v3.6 pin-and-slot): on the stick
+    // bay's back wall — a round pin at -15.3 sets x and y; a capsule
+    // rib at +15.5 (long in x) sets y only, so hole-spacing error
+    // slides along the slot instead of binding the pair. Both engage
+    // the stick's mounting holes (measured x -15.3 / +15.5).
+    translate([stick_pin_x, y_stick + stick_cav_h/2, shell_d - stick_cav_d])
+        cylinder(d = stick_peg_d, h = stick_peg_h);
+    hull() for (dx = [-1, 1])
+        translate([stick_slot_x + dx * (stick_slot_l - stick_peg_d)/2,
+                   y_stick + stick_cav_h/2, shell_d - stick_cav_d])
             cylinder(d = stick_peg_d, h = stick_peg_h);
     // lanyard lugs (v3.1, fixed v3.2): rounded tabs rising above the
     // top edge, each with a rounded-end through slot for a cord or

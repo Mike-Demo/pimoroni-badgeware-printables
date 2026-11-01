@@ -1,4 +1,4 @@
-# Tufty handheld — full shell case (v3.5 — final-review fixes)
+# Tufty handheld — full shell case (v3.6 — pin-and-slot stick locators)
 
 A complete two-part shell that houses the whole Badgeware handheld stack
 at once, designed against Pimoroni's own printable models:
@@ -140,10 +140,10 @@ photos of the real board (52 mm long; positions ±~0.5 mm):
   bay end with the stick centred (plug-body clearance itself is
   unverified; the top pilot holes keep 1.4 mm of wall).
 - **Mounting holes** Ø ≈ 3–3.2 mm at −15.3 / +15.5 mm from centre get
-  two **locator pegs** (Ø2.5 × 1.4 mm in v3.4; **Ø2.0 from v3.5** —
-  see below) on the bay's back wall: the stick registers in place,
-  can't slide or rattle between its plugs, and stays put in its
-  clip orientation.
+  two **locators** on the bay's back wall (Ø2.5 pegs in v3.4, Ø2.0 in
+  v3.5, **pin-and-slot from v3.6** — see below): the stick registers
+  in place, can't slide or rattle between its plugs, and stays put
+  in its clip orientation.
 - **Sensors verified against the window** — BME280 −6.7 mm, gyro
   +2.2, LTR559 +10.6, all on the board's centreline: the full-length
   52 × 5.5 mm window covers all three in either orientation, so the
@@ -185,6 +185,25 @@ with plug housings outside the channel — the real lead's dimensions
 remain a first-fit check, and SLS nylon powder removal from that
 route may be fiddly. Verified after export with 44 mesh point-probes
 (the v3.4 set plus the membrane point).
+
+## v3.6 — pin-and-slot
+
+The verification review (`REVIEW-V3.5.md`, verdict *PRINT WITH
+CHANGES*) confirmed the groove breakthrough (32-point grid, no
+membrane) and the doc corrections, with one margin left open: with
+minimum-size holes, the Ø2.0 peg pair's total clearance (1.0 mm) is
+exactly consumed by worst-case opposing spacing errors (±0.5 mm
+each) — seating possible, but with zero margin.
+
+v3.6 resolves it the standard way: **pin-and-slot**. The −15.3
+locator stays a round Ø2.0 × 1.4 pin (sets x and y); the +15.5
+locator is now a capsule rib, Ø2.0 wide × 5.5 long in x × 1.4 high —
+it sets y only, and any hole-spacing error simply slides along the
+slot. The review's other note is also closed: the SCAD header and
+dimension comments now say "PCB-end room" like the README, not
+"plug room". Verified after export with 47 mesh point-probes (pin
+and rib present, air beside and beyond the rib, all v3.5 checks
+unchanged).
 
 ## Still pending — physical checks only
 
