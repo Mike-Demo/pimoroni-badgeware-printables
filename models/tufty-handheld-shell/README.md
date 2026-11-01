@@ -1,4 +1,4 @@
-# Tufty handheld — full shell case (v3.4 — stick locator pegs + longer bay)
+# Tufty handheld — full shell case (v3.5 — final-review fixes)
 
 A complete two-part shell that houses the whole Badgeware handheld stack
 at once, designed against Pimoroni's own printable models:
@@ -115,8 +115,9 @@ front view.
   rib at that height is omitted (8 ribs on the left, 9 on the right).
 - **BOOT / RESET (M4, closed)** — Ø7 mm holes through the back panel
   at RESET (+12.3, 65.9) and HOME (+22.5, 65.9); the plungers are
-  ~Ø4.5 mm, and a paperclip or SIM tool reaches them (~11 mm from
-  panel to case back). The rear lighting stays covered.
+  ~Ø4.5 mm. Reach corrected in v3.5: the case back at the buttons
+  sits ~14.4 mm from the panel's inside face (~16.8 mm from outside),
+  so use a tool at least ~17 mm long. The rear lighting stays covered.
 - **Qw/ST routing (B2 tail, closed for the badge end)** — the badge's
   socket is at the top edge of its case (x −16, facing up). A riser
   opening in the upper divider (z 6–21, merging with the front notch)
@@ -135,12 +136,14 @@ The Multi-Sensor Stick was the last unmeasured part. From product
 photos of the real board (52 mm long; positions ±~0.5 mm):
 
 - **Qw/ST connectors at both ends** — it daisy-chains. The stick bay
-  is lengthened 61.5 → 66 mm so a plug gets ~7 mm at each end with
-  the stick centred (the top pilot holes keep 1.4 mm of wall).
+  is lengthened 61.5 → 66 mm, giving ~7 mm from each PCB end to the
+  bay end with the stick centred (plug-body clearance itself is
+  unverified; the top pilot holes keep 1.4 mm of wall).
 - **Mounting holes** Ø ≈ 3–3.2 mm at −15.3 / +15.5 mm from centre get
-  two **locator pegs** (Ø2.5 × 1.4 mm, deliberately loose) on the
-  bay's back wall: the stick registers in place, can't slide or
-  rattle between its plugs, and stays put in its clip orientation.
+  two **locator pegs** (Ø2.5 × 1.4 mm in v3.4; **Ø2.0 from v3.5** —
+  see below) on the bay's back wall: the stick registers in place,
+  can't slide or rattle between its plugs, and stays put in its
+  clip orientation.
 - **Sensors verified against the window** — BME280 −6.7 mm, gyro
   +2.2, LTR559 +10.6, all on the board's centreline: the full-length
   52 × 5.5 mm window covers all three in either orientation, so the
@@ -154,6 +157,34 @@ channel to the pad. One peripheral at a time works today.
 
 Verified after export with 43 mesh point-probes (the v3.3 set plus
 pegs present, bay end extended, pilot wall intact).
+
+## v3.5 — the final review's fixes
+
+The final review (`REVIEW-V3.4.md`, verdict *PRINT WITH CHANGES —
+first-fit prototype*) independently confirmed every measured
+placement, and found three things to fix:
+
+1. **The pad groove stopped 0.02 mm short** — it ended at z 13.90
+   against the pad bay's floor face at z 13.92, leaving a skin the
+   cable exit depended on the slicer discarding. The groove now runs
+   to z 14.2 and breaks through positively (a probe at the old
+   membrane plane, z 13.91, now reads void).
+2. **Pegs loosened** — Ø2.5 pegs in Ø3.0–3.2 holes left only
+   0.25–0.35 mm radial clearance against the ±0.5 mm photo tolerance;
+   opposing errors could have kept both pegs from seating at once.
+   The pegs are now **Ø2.0** (0.5–0.6 mm radial clearance) — they
+   still locate the stick to ~±0.6 mm instead of a 7 mm float.
+3. **BOOT/RESET reach corrected** — the case back at the buttons
+   sits higher than the standoff datum the v3.3 text used: ~14.4 mm
+   from the panel's inside face, ~16.8 mm from outside. Use a
+   ≥17 mm tool. (Text fix only; the holes were already right.)
+
+Also noted by the review, unchanged: the cable route's narrow
+section (6 × 2.3 mm) passes a connector-free lead up to ~4.5 × 1.5 mm
+with plug housings outside the channel — the real lead's dimensions
+remain a first-fit check, and SLS nylon powder removal from that
+route may be fiddly. Verified after export with 44 mesh point-probes
+(the v3.4 set plus the membrane point).
 
 ## Still pending — physical checks only
 

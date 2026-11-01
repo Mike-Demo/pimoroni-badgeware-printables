@@ -28,15 +28,21 @@ under the bezel lip — the notches must move to the measured centres.
   top edge, plunger Ø ≈ 4.5 mm.
 - Plan: Ø7 mm access holes in the shell's back panel at these
   positions (extra Ø covers photo + print tolerance; a paperclip/SIM
-  tool reaches the ~11 mm from panel to case back).
+  tool reaches the ~14.4 mm from the panel's inside face to the case
+  back at that height — use a ≥17 mm tool; corrected in v3.5 per
+  REVIEW-V3.4, the earlier ~11 mm figure used the standoff datum).
 
 ## USB-C
 
 - On the badge's **left edge** (front view) — not the bottom edge.
   Centre y ≈ 32.5 (two photos agree within 0.5 mm). The receptacle
   housing sits ~flush/proud of the case edge, mid-thickness.
-- Plan: 14 (y) × 10 (z) window through the badge bay's left wall,
-  centred z ≈ 9–10, so a plug can mate with the badge seated.
+- As built: a 14 (y) × 11 (z) window through the badge bay's left
+  wall, centred at shell (y 76.4, z 13.5) — spanning z 8..19, which
+  covers the mid-thickness port wherever it sits in that band — so a
+  plug can mate with the badge seated. (The original plan line here
+  said 14 × 10 at z ≈ 9–10 without a stated datum; the SCAD window
+  above is the operative one, per REVIEW-V3.4.)
 
 ## Qw/ST socket (badge side)
 

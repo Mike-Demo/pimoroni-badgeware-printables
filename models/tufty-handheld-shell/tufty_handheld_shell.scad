@@ -1,4 +1,4 @@
-// Tufty 2350 handheld — FULL SHELL case (v3.4: stick locator pegs + bay)
+// Tufty 2350 handheld — FULL SHELL case (v3.5: final-review fixes)
 // =====================================================================
 // A complete two-part shell that houses all three boards at once:
 //   * Tufty 2350 (in its stock polycarbonate case) — rests on four rear
@@ -76,6 +76,15 @@
 //     engage the mounting holes: the stick can't slide or rattle,
 //     and its sensors (BME280 -6.7, gyro +2.2, LTR559 +10.6, all on
 //     the centreline) stay registered to the bezel window.
+// v3.5 (final review REVIEW-V3.4: PRINT WITH CHANGES):
+//   1. pad floor groove extended z 13.9 -> 14.2: it stopped 0.02 mm
+//      short of the pad bay's floor face (z 13.92), leaving a skin
+//      the cable exit depended on the slicer discarding.
+//   2. stick pegs Ø2.5 -> Ø2.0: radial clearance 0.5-0.6 mm against
+//      the ±0.5 mm photo tolerance (Ø2.5 left only 0.25-0.35).
+//   3. README: BOOT/RESET reach corrected to ~14.4 mm from the
+//      panel's inner face (the case back at the buttons sits at
+//      z ~16.8 transformed, not at the standoff datum ~11 mm).
 // STILL PENDING (see README): nothing measurement-shaped — what
 // remains is physical: first-fit checks and the lug strength test.
 //
@@ -170,8 +179,9 @@ chan_x = -37.5;                      // pad cable channel column (the
                                      // badge bay's left standoff gutter)
 stick_peg_x = [-15.3, 15.5];         // stick mounting-hole centres
                                      // (v3.4, measured from centre)
-stick_peg_d = 2.5;  stick_peg_h = 1.4;  // loose locator fit in the
-                                     // stick's ~Ø3.2 holes
+stick_peg_d = 2.0;  stick_peg_h = 1.4;  // locator fit in the stick's
+                                     // ~Ø3.2 holes (v3.5: Ø2.0 gives
+                                     // 0.5-0.6 radial clearance)
 
 // Qw/ST divider notches (B2), cut from the front of each divider web.
 // Pad connector sits at x ~ +10 on the pad case (from its STL).
@@ -288,7 +298,9 @@ module back_shell() {
         // into the plug room above the pad.
         box_at(chan_x, 27.2, 7.5, 6, 34.4, 6);
         box_at(-32.25, 13, 10.25, 16.5, 6, 11.5);
-        box_at(-28, 23, 12.75, 6, 22, 2.3);
+        box_at(-28, 23, 12.9, 6, 22, 2.6);   // groove z 11.6..14.2:
+        // breaks through the pad floor face (13.92); v3.3 stopped at
+        // 13.9, leaving a 0.02 mm skin (REVIEW-V3.4 finding 1)
         // M2.5 pilot holes: blind, 10 mm deep from the front face (B1).
         for (sx = [-1, 1], yy = [boss_y_bot, boss_y_top])
             translate([sx * boss_x, yy, shell_d - pilot_depth])
